@@ -106,6 +106,14 @@ define(['jquery', 'knockout', 'jnj_chart', 'd3', 'ohdsi.util', 'appConfig', 'web
 							self.loadCohortDefinition(cohortDefinitionId, conceptSetId, 'cohort-definition-manager', 'details');
 						});
 					},
+					'/plp': function() {
+						require(['plp-manager'], function () {
+							self.componentParams = {
+								model: self
+							};
+							self.currentView('plp-manager');
+						});						
+					},
 					'/datasources': function () {
 						require(['data-sources'], function () {
 							self.componentParams = {

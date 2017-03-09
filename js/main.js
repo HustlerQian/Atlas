@@ -129,7 +129,8 @@ requirejs.config({
 		"roles": "components/roles",
 		"role-details": "components/role-details",
 		"loading": "components/loading",
-		"atlas-state": "components/atlas-state"
+		"atlas-state": "components/atlas-state",
+		"plp-manager": "components/plp-manager"
 	}
 });
 
