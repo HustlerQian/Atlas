@@ -1,59 +1,59 @@
 requirejs.config({
-	baseUrl: 'js',
-	config: {
-		text: {
-			useXhr: function (url, protocol, hostname, port) {
-				return true;
-			}
-		}
-	},
-	packages: [
-		{
-			name: "databindings",
-			location: "modules/databindings"
+    baseUrl: 'js',
+    config: {
+        text: {
+            useXhr: function (url, protocol, hostname, port) {
+                return true;
+            }
+        }
+    },
+    packages: [
+        {
+            name: "databindings",
+            location: "modules/databindings"
 		},
-		{
-			name: "cohortdefinitionviewer",
-			location: "modules/cohortdefinitionviewer"
+        {
+            name: "cohortdefinitionviewer",
+            location: "modules/cohortdefinitionviewer"
 		},
-		{
-			name: "circe",
-			location: "modules/circe"
+        {
+            name: "circe",
+            location: "modules/circe"
     	},
-		{
-			name: "iranalysis",
-			location: "modules/iranalysis"
+        {
+            name: "iranalysis",
+            location: "modules/iranalysis"
         },
-		{
-			name: "extenders",
-			location: "extenders"
+        {
+            name: "extenders",
+            location: "extenders"
         }
 	],
-	shim: {
-		"colorbrewer": {
-			exports: 'colorbrewer'
-		},
-		"bootstrap": {
-			"deps": [
+    shim: {
+        "colorbrewer": {
+            exports: 'colorbrewer'
+        },
+        "bootstrap": {
+            "deps": [
 				'jquery'
 			]
-		},
-		"prism": {
-			"prism": {
-				"exports": "Prism"
-			}
-		}
-	},
-	map: {
-		"*": {
-			'jquery-ui/sortable': 'jquery-ui',
-			'jquery-ui/draggable': 'jquery-ui',
-			'jquery-ui/dialog': 'jquery-ui',
-			'jquery-ui/autocomplete': 'jquery-ui',
-			'jquery-ui/tabs': 'jquery-ui'
-		}
-	},
-	deps: ['css!styles/jquery.dataTables.min',
+        },
+        "prism": {
+            "prism": {
+                "exports": "Prism"
+            }
+        }
+    },
+    map: {
+        "*": {
+            'jquery-ui/sortable': 'jquery-ui',
+            'jquery-ui/draggable': 'jquery-ui',
+            'jquery-ui/dialog': 'jquery-ui',
+            'jquery-ui/autocomplete': 'jquery-ui',
+            'jquery-ui/tabs': 'jquery-ui'
+        }
+    },
+    deps: ['css!styles/jquery.dataTables.min',
 				 'css!styles/jquery.dataTables.colVis.css'
 	],
 	paths: {
