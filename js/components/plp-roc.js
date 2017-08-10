@@ -42,7 +42,7 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
                 .ticks(5)
         }
 
-        // plotting	
+        // plotting
         var lineFunction = d3.svg.line()
             .y(function (d) {
                 return y(d.sensitivity);
@@ -90,7 +90,7 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
         //================================================================
         var datas;
 
-        d3.csv("./js/data/" + self.modelId + "_roc.csv", function (error, dataset) { // NEW
+        d3.csv("./js/data/plp/" + self.modelId + "_roc.csv", function (error, dataset) { // NEW
             datas = dataset;
             dataset.forEach(function (d) {
                 d.sensitivity = +d.sensitivity; // NEW
@@ -146,21 +146,21 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
             //        .attr("class", "area")
             //        .attr("d", area)
             //		        .on("mouseover", function(d) {
-            // 
-            //                d3.select(this).transition()        
-            //                    .duration(200)      
-            //                    .style("opacity", .8);            
-            //            })                  
-            //        .on("mouseout", function(d) {       
-            //            d3.select(this).transition()        
-            //                .duration(200)      
-            //                .style("opacity", 0.2);   
+            //
+            //                d3.select(this).transition()
+            //                    .duration(200)
+            //                    .style("opacity", .8);
+            //            })
+            //        .on("mouseout", function(d) {
+            //            d3.select(this).transition()
+            //                .duration(200)
+            //                .style("opacity", 0.2);
             //        });
 
             x.domain([0, 1]);
             y.domain([0, 1]);
 
-            // add x=y dash line 
+            // add x=y dash line
             svgContainer.append("line") // attach a line
                 .style("stroke", "black") // colour the line
                 .style("stroke-dasharray", ("3, 3")) // adds the dash
@@ -188,11 +188,11 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
                 .attr("transform", "rotate(-90)")
                 .attr("y", 0 - margin.left + 10)
                 .attr("x", 0 - height / 1.6)
-                //.style("font-size","12px")              
+                //.style("font-size","12px")
                 .style("text-anchor", "left")
                 .text("Sensitivity");
 
-            // title	
+            // title
             svgContainer.append("text")
                 .attr("x", (width / 2))
                 .attr("y", 0 - (margin.top / 2))
@@ -314,7 +314,7 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
                     return y2(maxheight - Math.abs(d.height2));
                 });
 
-            // add a moving line	  
+            // add a moving line
             distLine = svgContainerDist.append("line").attr("class", "distLine")
                 .attr("x1", x2(dataset[50]['predictionThreshold'])) //<<== change your code here
                 .attr("y1", 0)
@@ -331,7 +331,7 @@ define(['knockout', 'jquery', 'text!./plp-roc.html', 'appConfig', 'd3', 'd3-slid
 
             // add the text with the moving sens/spec
 
-            // add mouse over values 
+            // add mouse over values
 
 
 

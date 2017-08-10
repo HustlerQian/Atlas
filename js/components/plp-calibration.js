@@ -80,7 +80,7 @@ define(['knockout', 'jquery', 'text!./plp-calibration.html', 'appConfig', 'd3', 
             });
 
 
-        d3.csv("./js/data/" + self.modelId + "_calibration.csv", function (error, dataset) { // NEW
+        d3.csv("./js/data/plp/" + self.modelId + "_calibration.csv", function (error, dataset) { // NEW
             dataset.forEach(function (d) {
                 d.observedIncidence = +d.observedIncidence; // NEW
                 d.averagePredictedProbability = +d.averagePredictedProbability;
@@ -131,7 +131,7 @@ define(['knockout', 'jquery', 'text!./plp-calibration.html', 'appConfig', 'd3', 
                 });
 
 
-            // add x=y dash line 
+            // add x=y dash line
             svg.append("line") // attach a line
                 .style("stroke", "black") // colour the line
                 .style("stroke-dasharray", ("3, 3")) // adds the dash
@@ -151,7 +151,7 @@ define(['knockout', 'jquery', 'text!./plp-calibration.html', 'appConfig', 'd3', 
                 .attr("class", "y axis")
                 .call(yAxis);
 
-            // title	
+            // title
             svg.append("text")
                 .attr("x", (width / 2))
                 .attr("y", 0 - (margin.top / 2))
@@ -201,7 +201,7 @@ define(['knockout', 'jquery', 'text!./plp-calibration.html', 'appConfig', 'd3', 
 
 
             // add the confidence interval:
-            // wald ci: p+2*sqrt(p(1-p)/n)		
+            // wald ci: p+2*sqrt(p(1-p)/n)
 
             svg.selectAll("lines")
                 .data(dataset)

@@ -76,7 +76,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
                 // Create and select table skeleton
                 var tableSelect = targetDiv.append("table")
                     .attr("class", "display compact")
-                    // Generally, hard-coding Ids is wrong, because then 
+                    // Generally, hard-coding Ids is wrong, because then
                     // you can't have 2 table plots in one page (both will have the same id).
                     // I will leave it for now for simplicity. TODO: remove hard-coded id.
                     .attr("id", "gene_table")
@@ -93,7 +93,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
                     });
                 }
 
-                // Here I initialize the table and head only. 
+                // Here I initialize the table and head only.
                 // I will let DataTables handle the table body.
                 var headSelect = tableSelect.append("thead");
                 headSelect.append("tr")
@@ -219,7 +219,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
 
             // data
             //================================================================
-            d3.csv("./js/data/" + self.modelId + "_inspector.csv", function (error, dataset) { // NEW
+            d3.csv("./js/data/plp/" + self.modelId + "_inspector.csv", function (error, dataset) { // NEW
                 dataset.forEach(function (d) {
                     d.covariateValue = +d.covariateValue;
                     d.CovariateMeanWithOutcome = +d.CovariateMeanWithOutcome;
@@ -384,7 +384,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
                     //console.log(val)
                     if (val == 'demographic') {
                         if (demoFilt) {
-                            //console.log("TESTING 123 IS THIS ACTIVE??")  
+                            //console.log("TESTING 123 IS THIS ACTIVE??")
                             demoFilt = !demoFilt;
                             svg.selectAll("circle").filter(".demo").transition().delay(1)
                                 .attr("r", function (d) {
@@ -407,7 +407,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
 
                     if (val == 'conditions') {
                         if (condFilt) {
-                            //console.log("TESTING 123 IS THIS ACTIVE??")  
+                            //console.log("TESTING 123 IS THIS ACTIVE??")
                             condFilt = !condFilt;
                             svg.selectAll("circle").filter(".cond")
                                 .attr("r", function (d) {
@@ -430,7 +430,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
 
                     if (val == 'drugs') {
                         if (drugFilt) {
-                            //console.log("TESTING 123 IS THIS ACTIVE??")  
+                            //console.log("TESTING 123 IS THIS ACTIVE??")
                             drugFilt = !drugFilt;
                             svg.selectAll("circle").filter(".drug")
                                 .attr("r", function (d) {
@@ -452,7 +452,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
 
                     if (val == 'procedures') {
                         if (procFilt) {
-                            //console.log("TESTING 123 IS THIS ACTIVE??")  
+                            //console.log("TESTING 123 IS THIS ACTIVE??")
                             procFilt = !procFilt;
                             svg.selectAll("circle").filter(".proc")
                                 .attr("r", function (d) {
@@ -474,7 +474,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
 
                     if (val == 'measurement/observations') {
                         if (measobsFilt) {
-                            //console.log("TESTING 123 IS THIS ACTIVE??")  
+                            //console.log("TESTING 123 IS THIS ACTIVE??")
                             measobsFilt = !measobsFilt;
                             svg.selectAll("circle").filter(".measobs")
                                 .attr("r", function (d) {
@@ -649,7 +649,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
                 inputElemsColor.on("change", changeColor);
                 inputElemsSize.on("change", changeSize);
 
-                // add x=y dash line 
+                // add x=y dash line
                 svg.append("line") // attach a line
                     .style("stroke", "black") // colour the line
                     .style("stroke-dasharray", ("3, 3")) // adds the dash
@@ -669,7 +669,7 @@ define(['knockout', 'jquery', 'text!./plp-inspector.html', 'appConfig', 'd3'], f
                     .attr("class", "y axis")
                     .call(yAxis);
 
-                // title	
+                // title
                 svg.append("text")
                     .attr("x", (width / 2))
                     .attr("y", 0 - (margin.top / 2))
