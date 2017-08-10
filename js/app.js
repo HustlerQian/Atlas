@@ -955,76 +955,68 @@ define(['jquery', 'knockout', 'jnj_chart', 'd3', 'ohdsi.util', 'appConfig', 'web
 			'Death'
 		]);
         */
-		// The reports available are defined as part of the visualizationPacks() definition above
-		self.reports = ko.observableArray(self.visualizationPacks().map(function (item) {
-			return item.reportKey
-		}).filter(function (n) {
-			return n != undefined
-		}).sort());
-		self.getSourceInfo = function (source) {
-			var info = self.currentCohortDefinitionInfo();
-			for (var i = 0; i < info.length; i++) {
-				if (info[i].id.sourceId == source.sourceId) {
-					return info[i];
-				}
-			}
-		}
-		self.getCohortCount = function (source, observable) {
-			var sourceKey = source.sourceKey;
-			var cohortDefinitionId = self.currentCohortDefinition() && self.currentCohortDefinition().id();
-			if (cohortDefinitionId != undefined) {
-				$.ajax(config.services[0].url + 'cohortresults/' + sourceKey + '/' + cohortDefinitionId + '/distinctPersonCount', {
-					observable: observable,
-					success: function (result) {
-						this.observable(result);
-					}
-				});
-			}
-		}
-		self.routeToConceptSet = function () {
-			if (self.currentConceptSet() == undefined) {
-				document.location = "#/conceptset/0/details";
-			} else {
-				document.location = "#/conceptset/" + self.currentConceptSet().id + "/details";
-			}
-		}
-		self.getCompletedAnalyses = function (source) {
-			var cohortDefinitionId = self.currentCohortDefinition().id();
-			$.ajax(config.services[0].url + 'cohortresults/' + source.sourceKey + '/' + cohortDefinitionId + '/analyses', {
-				success: function (analyses) {
-					sourceAnalysesStatus = {};
-					// initialize cohort analyses status
-					for (var i = 0; i < self.cohortAnalyses().length; i++) {
-						// If the analysis id's in the array returned from the ws call (analyses)
-						// contains all of the elements in cohortAnalyses()[i] array, then we
-						// know that the analysis has been completed
-						var allAnalysesCompleted = analyses.filter(function (elem) {
-							return self.cohortAnalyses()[i].analyses.indexOf(elem) > -1;
-						}).length == self.cohortAnalyses()[i].analyses.length;
-						if(self.cohortAnalyses()[8].reportKey == 'Heracles Heel'){
-							if(analyses.filter(function (elem) {
-								return self.cohortAnalyses()[i].analyses.indexOf(elem) > -1;
-							}).length > 0){
-								sourceAnalysesStatus[self.cohortAnalyses()[i].name] = true;
-							}
-						}else{
-							sourceAnalysesStatus[self.cohortAnalyses()[i].name] = allAnalysesCompleted ? 1 : 0;
-						}
-					}
-					sourceAnalysesStatus.ready = true;
-					self.sourceAnalysesStatus[source.sourceKey](sourceAnalysesStatus);
-				}
-			});
-		}
-		self.setConceptSet = function (conceptset, expressionItems) {
-			for (var i = 0; i < expressionItems.length; i++) {
-				var conceptSetItem = expressionItems[i];
-				conceptSetItem.isExcluded = ko.observable(conceptSetItem.isExcluded);
-				conceptSetItem.includeDescendants = ko.observable(conceptSetItem.includeDescendants);
-				conceptSetItem.includeMapped = ko.observable(conceptSetItem.includeMapped);
-				sharedState.selectedConceptsIndex[conceptSetItem.concept.CONCEPT_ID] = 1;
-				sharedState.selectedConcepts.push(conceptSetItem);
-			}
+        // The reports available are defined as part of the visualizationPacks() definition above
+        self.reports = ko.observableArray(self.visualizationPacks().map(function (item) {
+            return item.reportKey
+        }).filter(function (n) {
+            return n != undefined
+        }).sort());
+        self.getSourceInfo = function (source) {
+            var info = self.currentCohortDefinitionInfo();
+            for (var i = 0; i < info.length; i++) {
+                if (info[i].id.sourceId == source.sourceId) {
+                    return info[i];
+                }
+            }
+        }
+        self.getCohortCount = function (source, observable) {
+            var sourceKey = source.sourceKey;
+            var cohortDefinitionId = self.currentCohortDefinition() && self.currentCohortDefinition().id();
+            if (cohortDefinitionId != undefined) {
+                $.ajax(config.services[0].url + 'cohortresults/' + sourceKey + '/' + cohortDefinitionId + '/distinctPersonCount', {
+                    observable: observable,
+                    success: function (result) {
+                        this.observable(result);
+                    }
+                });
+            }
+        }
+        self.routeToConceptSet = function () {
+            if (self.currentConceptSet() == undefined) {
+                document.location = "#/conceptset/0/details";
+            } else {
+                document.location = "#/conceptset/" + self.currentConceptSet().id + "/details";
+            }
+        }
+        self.getCompletedAnalyses = function (source) {
+            var cohortDefinitionId = self.currentCohortDefinition().id();
+            $.ajax(config.services[0].url + 'cohortresults/' + source.sourceKey + '/' + cohortDefinitionId + '/analyses', {
+                success: function (analyses) {
+                    sourceAnalysesStatus = {};
+                    // initialize cohort analyses status
+                    for (var i = 0; i < self.cohortAnalyses().length; i++) {
+                        // If the analysis id's in the array returned from the ws call (analyses)
+                        // contains all of the elements in cohortAnalyses()[i] array, then we
+                        // know that the analysis has been completed
+                        var allAnalysesCompleted = analyses.filter(function (elem) {
+                            return self.cohortAnalyses()[i].analyses.indexOf(elem) > -1;
+                        }).length == self.cohortAnalyses()[i].analyses.length;
+                        sourceAnalysesStatus[self.cohortAnalyses()[i].name] = allAnalysesCompleted ? 1 : 0;
+                    }
+                    sourceAnalysesStatus.ready = true;
+                    self.sourceAnalysesStatus[source.sourceKey](sourceAnalysesStatus);
+                }
+            });
+        }
+        self.setConceptSet = function (conceptset, expressionItems) {
+            for (var i = 0; i < expressionItems.length; i++) {
+                var conceptSetItem = expressionItems[i];
+                conceptSetItem.isExcluded = ko.observable(conceptSetItem.isExcluded);
+                conceptSetItem.includeDescendants = ko.observable(conceptSetItem.includeDescendants);
+                conceptSetItem.includeMapped = ko.observable(conceptSetItem.includeMapped);
+                sharedState.selectedConceptsIndex[conceptSetItem.concept.CONCEPT_ID] = 1;
+                sharedState.selectedConcepts.push(conceptSetItem);
+            }
 
             self.currentConceptSet({
                 name: ko.observable(conceptset.name),

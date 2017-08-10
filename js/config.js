@@ -4,7 +4,7 @@ define([], function () {
 	config.services = [
 		{
 			name: 'Local',
-			url: 'http://localhost:8080/WebAPI/'
+			url: 'http://epibeta.jnj.com:8080/WebAPI/'
     }
 	];
 
